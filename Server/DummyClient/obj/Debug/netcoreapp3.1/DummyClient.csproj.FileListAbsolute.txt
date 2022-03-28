@@ -1,0 +1,14 @@
+D:\Github_jangjo123\C-_study\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.exe
+D:\Github_jangjo123\C-_study\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.deps.json
+D:\Github_jangjo123\C-_study\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.runtimeconfig.json
+D:\Github_jangjo123\C-_study\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.runtimeconfig.dev.json
+D:\Github_jangjo123\C-_study\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.dll
+D:\Github_jangjo123\C-_study\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.pdb
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.csproj.AssemblyReference.cache
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.AssemblyInfoInputs.cache
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.AssemblyInfo.cs
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.csproj.CoreCompileInputs.cache
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.dll
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.pdb
+D:\Github_jangjo123\C-_study\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.genruntimeconfig.cache
