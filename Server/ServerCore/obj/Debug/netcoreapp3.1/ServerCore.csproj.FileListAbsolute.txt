@@ -11,3 +11,4 @@ D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCor
 D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.dll
 D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.pdb
 D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.genruntimeconfig.cache
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.csproj.AssemblyReference.cache
