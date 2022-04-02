@@ -4,6 +4,53 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
+    class FastLock
+    {
+        public int id;
+    }
+
+    class SessionManager
+    {
+        static object _lock = new object();
+
+        public static void TestSession()
+        {
+            lock (_lock)
+            {
+
+            }
+        }
+
+        public static void Test()
+        {
+            lock (_lock)
+            {
+                UserManager.TestUser(); // 서로 lock이  얽힘
+            }
+        }
+    }
+
+    class UserManager
+    {
+        static object _lock = new object();
+
+        public static void Test()
+        {
+            lock (_lock)
+            {
+                SessionManager.TestSession(); // 서로 lock이  얽힘
+            }
+        }
+
+        public static void TestUser()
+        {
+            lock (_lock)
+            {
+
+            }
+        }
+    }
+
     class Program
     {
         static int number = 0;
@@ -12,45 +59,17 @@ namespace ServerCore
         static void Thread_1()
         {
 
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 100; i++)
             {
-                // 상호배제 Mutual Exclusive
-                lock (_obj) // try, finally 예시와 비슷하게 동작함
-                {
-                    number++;
-                }
-
-                //try 
-                //{
-                //    Monitor.Enter(_obj);
-                //    number++;
-
-                //    return;
-                //}
-                //finally // 데드락 해결
-                //{
-                //    Monitor.Exit(_obj);
-                //}
-
-                //Monitor.Enter(_obj); // 문을 잠구는 행위
-
-                //{
-                //    number++;
-                //    return; // 문을 안열고 나감.. (데드락, DeadLock)
-                //}
-
-                //Monitor.Exit(_obj); // 잠금을 풀어준다.
+                SessionManager.Test();
             }
         }
 
         static void Thread_2()
         {
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 100; i++)
             {
-                lock (_obj) // try, finally 예시와 비슷하게 동작함
-                {
-                    number--;
-                }
+                UserManager.Test();
             }
         }
 
@@ -59,6 +78,9 @@ namespace ServerCore
             Task t1 = new Task(Thread_1);
             Task t2 = new Task(Thread_2);
             t1.Start();
+
+            Thread.Sleep(100);
+
             t2.Start();
 
             Task.WaitAll(t1, t2);
