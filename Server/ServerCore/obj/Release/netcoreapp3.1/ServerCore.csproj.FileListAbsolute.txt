@@ -1,0 +1,14 @@
+D:\Github_jangjo123\C-_study\Server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.exe
+D:\Github_jangjo123\C-_study\Server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.deps.json
+D:\Github_jangjo123\C-_study\Server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.runtimeconfig.json
+D:\Github_jangjo123\C-_study\Server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.runtimeconfig.dev.json
+D:\Github_jangjo123\C-_study\Server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.dll
+D:\Github_jangjo123\C-_study\Server\ServerCore\bin\Release\netcoreapp3.1\ServerCore.pdb
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.csproj.AssemblyReference.cache
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.AssemblyInfoInputs.cache
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.AssemblyInfo.cs
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.csproj.CoreCompileInputs.cache
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.dll
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.pdb
+D:\Github_jangjo123\C-_study\Server\ServerCore\obj\Release\netcoreapp3.1\ServerCore.genruntimeconfig.cache
