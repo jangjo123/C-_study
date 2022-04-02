@@ -4,41 +4,57 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    // 메모리 베리어
-    // 1) 코드 재배치 억제
-    // 2) 가시성
-
-    // 1) Full Memory Barrier (ASM MFENCE, C# Thread.MemoryBarrier) : Store/Load 둘다 막는다
-    // 2) Store Memory Barrier (ASM SFENCE) : Store만 막는다
-    // 3) Load만 Memory Barrier (ASM LFENCE) : Load만 막는다
-
     class Program
     {
-        int _answer;
-        bool _complete;
+        static int number = 0;
 
-        void A()
+        static void Thread_1()
         {
-            _answer = 123;
-            Thread.MemoryBarrier(); // Barrier 1
-            _complete = true;
-            Thread.MemoryBarrier(); // Barrier 2
-        }
+            // atomic  = 원자성
 
-        void B()
-        {
-            Thread.MemoryBarrier(); // Barrier 3
-            if (_complete)
+            // 검 구매 과정
+            // 골드 -= 100;
+                // 서버 다운(골드는 줄고 검은 안사짐)
+            // 인벤 += 검
+            
+            // 집행검 User2 인벤이 넣어라 - Ok
+            // 집행검 User1 인벤에서 없애라 - fail (아이템 복사 문제)
+
+            for (int i = 0; i < 100000; i++)
             {
-                Thread.MemoryBarrier(); // Barrier 4
-                Console.WriteLine(_answer);
+                // ref를 넣는 이유: number를 참조해야 원자적이게 됨. 
+
+                int affterValue = Interlocked.Increment(ref number); // 원자적으로 이뤄지게 보정 (성능 손해)
+
+                //number++;
+
+                // 어셈블리에서 number++ 이 돌아가는 과정 느낌
+                //int temp = number; // 0
+                //temp += 1; // 1
+                //number = temp; // number = 1
             }
         }
 
+        static void Thread_2()
+        {
+            for (int i = 0; i < 100000; i++)
+            {
+                Interlocked.Decrement(ref number);
+
+                // number--;
+            }
+        }
 
         static void Main(string[] args)
         {
+            Task t1 = new Task(Thread_1);
+            Task t2 = new Task(Thread_2);
+            t1.Start();
+            t2.Start();
 
+            Task.WaitAll(t1, t2);
+
+            Console.WriteLine(number);
         }
     }
 }
