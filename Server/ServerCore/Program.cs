@@ -4,48 +4,31 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    class SpinLock
+    class Lock
     {
-        int _locked = 0;
+        // bool <- 커널
+        AutoResetEvent _available = new AutoResetEvent(true);
 
         public void Acquire()
         {
-            while (true)
-            {
-                //int original = Interlocked.Exchange(ref _locked, 1); // 원본 값을 반환하고 value값으로 변환
-
-                //if (original == 0)
-                //    break;
-
-                // CAS Compare-And-Swap
-                int expected = 0; // 예상하는 값
-                int desired = 1; // 원하는 값
-                if (Interlocked.CompareExchange(ref _locked, desired, expected) == expected)
-                    break;
-
-                // 쉬다 올게~
-                //Thread.Sleep(1); // 무조건 휴식 => 무조건 1ms 정도 쉬고 싶어요.
-                //Thread.Sleep(0); // 조건부 양보 => 나보다 우선순위가 낮은 애들한테는 양보 불가 => 우선순위가 나보다 같거나 높은 쓰레드가 없으면 다시 본인한테
-                Thread.Yield(); // 관대한 양보 => 관대하게 양보할태니, 지금 실행이 가능한 쓰레드가 있으면 실행하세요 => 실행 가는한 애가 없으면 남은 시간은 본인한테
-            }
-
-
+            _available.WaitOne(); // 입장 시도 (문을 자동으로 닫아줌)
+            // _available.Reset(); // flag = false;
         }
 
         public void Release()
         {
-            _locked = 0;
+            _available.Set(); // flag = true
         }
     }
 
     class Program
     {
         static int _num = 0;
-        static SpinLock _lock = new SpinLock();
+        static Lock _lock = new Lock();
 
         static void Thread_1()
         {
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 10000; i++)
             {
                 _lock.Acquire();
                 _num++;
@@ -55,7 +38,7 @@ namespace ServerCore
 
         static void Thread_2()
         {
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 10000; i++)
             {
                 _lock.Acquire();
                 _num--;
