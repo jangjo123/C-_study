@@ -51,7 +51,7 @@ namespace ServerCore
         {
             int lockCount = --_wirteCount;
             if (lockCount == 0)
-                Interlocked.Exchange(ref _flag, EMPTY_FLAG); // 문닫기 
+                Interlocked.Exchange(ref _flag, EMPTY_FLAG); // 문 열기
         }
 
         public void ReadLock()

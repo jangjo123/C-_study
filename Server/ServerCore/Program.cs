@@ -4,44 +4,33 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
+    // [ JobQueue ] -> 일이 있을 때 락을 걸고 최대한 TLS에 옮기고 거기서 일을함. (ThreadLocal)
 
     class Program
     {
-        static int count = 0;
-        static Lock _lock = new Lock();
+        // 쓰레드 마다 고유하게 갖는 값                                       // ThreadName이 null 일때 여기서 만듬..
+        static ThreadLocal<string> ThreadName = new ThreadLocal<string>(() => { return $"My Name is {Thread.CurrentThread.ManagedThreadId}"; }); 
+        // static string ThreadName // Program.cs 안에 있는 쓰레드들이 모두 공유
+
+        static void WhoAmI()
+        {
+            bool repeat = ThreadName.IsValueCreated;
+            if(repeat)
+                Console.WriteLine(ThreadName.Value + " (repeat)");
+
+            else
+                Console.WriteLine(ThreadName.Value);
+        }
 
         static void Main(string[] args)
         {
-            Task t1 = new Task(delegate ()
-            {
-                for (int i = 0; i < 100000; i++)
-                {
-                    _lock.WriteLock();
-                    _lock.WriteLock();
-                    _lock.WriteLock();
-                    count++;
-                    _lock.WriteUnlock();
-                    _lock.WriteUnlock();
-                    _lock.WriteUnlock();
-                }
-            });
 
-            Task t2 = new Task(delegate ()
-            {
-                for (int i = 0; i < 100000; i++)
-                {
-                    _lock.WriteLock();
-                    count--;
-                    _lock.WriteUnlock();
-                }
-            });
+            ThreadPool.SetMinThreads(1, 1);
+            ThreadPool.SetMaxThreads(3, 3);
 
-            t1.Start();
-            t2.Start();
+            Parallel.Invoke(WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI);
 
-            Task.WaitAll(t1, t2);
-
-            Console.WriteLine(count);
+            ThreadName.Dispose(); // 지우기
         }
     }
 }
