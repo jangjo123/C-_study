@@ -44,9 +44,6 @@ namespace DummyClient
             {
                 Console.WriteLine(e.ToString());
             }
-
-            
-
         }
     }
 }
