@@ -27,6 +27,7 @@ namespace ServerCore
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
             args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted);
             RegisterAccept(args); // Register -> 등록하다
+
         }
 
         void RegisterAccept(SocketAsyncEventArgs args)

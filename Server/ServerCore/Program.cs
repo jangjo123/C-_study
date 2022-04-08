@@ -15,21 +15,16 @@ namespace ServerCore
         {
             try
             {
-                // 손님이 말한 것을 저장하는 곳
-                byte[] reveBuff = new byte[1024];
+                Session session = new Session();
+                session.Start(clientSocket);
 
-                // 손님이 말한 것을 받는다 (몇 바이트 받는지는 따로 저장)
-                int recvBytes = clientSocket.Receive(reveBuff);
-                string recvData = Encoding.UTF8.GetString(reveBuff, 0, recvBytes);
-                Console.WriteLine($"[From Client] {recvData}");
-
-                // 보낸다
                 byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to Server !");
-                clientSocket.Send(sendBuff);
+                session.Send(sendBuff);
 
-                // 쫒아낸다.
-                clientSocket.Shutdown(SocketShutdown.Both);
-                clientSocket.Close();
+                Thread.Sleep(1000);
+
+                session.Disconnect();
+                session.Disconnect();
             }
             catch (Exception e)
             {
@@ -52,9 +47,10 @@ namespace ServerCore
             Console.WriteLine("Listening....");
 
             while (true)
-               {
-                    
-               }
+            {
+                ;
+            }
+            
 
             
         }
