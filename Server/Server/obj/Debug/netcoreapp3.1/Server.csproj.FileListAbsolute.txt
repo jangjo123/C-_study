@@ -1,0 +1,17 @@
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\Server.exe
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\Server.deps.json
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.json
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\Server.dll
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\Server.pdb
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\ServerCore.dll
+D:\Github_jangjo123\C-_study\Server\Server\bin\Debug\netcoreapp3.1\ServerCore.pdb
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.csproj.AssemblyReference.cache
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.csproj.CopyComplete
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.dll
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.pdb
+D:\Github_jangjo123\C-_study\Server\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache
