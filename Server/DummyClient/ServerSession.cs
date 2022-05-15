@@ -14,25 +14,56 @@ namespace DummyClient
         public ushort packetid;
     }
 
+    class PlayerInfoReq : Packet
+    {
+        public long playerId;
+    }
+
+    class PlayerInfoOk : Packet
+    {
+        public int hp;
+        public int attack;
+    }
+
+    public enum PacketID
+    {
+        PlayerInfoReq = 1,
+        PlayerInfoOk = 2,
+    }
+
     class ServerSession : Session
     {
+        //static unsafe void ToBytes(byte[] array, int offset, ulong value)
+        //{
+        //    fixed (byte* ptr = &array[offset])
+        //        *(ulong*)ptr = value;
+        //}
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnDisconnected : {endPoint}");
 
-            Packet packet = new Packet() { size = 4, packetid = 7 }; // 4byte 대충 7
+            PlayerInfoReq packet = new PlayerInfoReq() { size = 4, packetid = (ushort)PacketID .PlayerInfoReq, playerId = 1001}; // 4byte 대충 7
 
             // 보낸다.
-            for (int i = 0; i < 5; i++)
+            //for (int i = 0; i < 5; i++)
             {
-                ArraySegment<byte> openSegment = SendBufferHelper.Open(4096);
-                byte[] buffer = BitConverter.GetBytes(packet.size);
-                byte[] buffer2 = BitConverter.GetBytes(packet.packetid);
-                Array.Copy(buffer, 0, openSegment.Array, openSegment.Offset, buffer.Length);
-                Array.Copy(buffer2, 0, openSegment.Array, openSegment.Offset + buffer.Length, buffer2.Length);
-                ArraySegment<byte> sendBuff = SendBufferHelper.Close(packet.size);
+                ArraySegment<byte> s = SendBufferHelper.Open(4096);
 
-                Send(sendBuff);
+                ushort count = 0; // 지금까지 버퍼에 몇 바이트가 있는지 추적
+                bool success = true;
+
+                // success &= BitConverter.TryWriteBytes(new Span<byte>(s.Array, s.Offset, s.Count), packet.size);
+                count += 2;
+                success &= BitConverter.TryWriteBytes(new Span<byte>(s.Array, s.Offset + count, s.Count - count), packet.packetid);
+                count += 2;
+                success &= BitConverter.TryWriteBytes(new Span<byte>(s.Array, s.Offset + count, s.Count - count), packet.playerId);
+                count += 8;
+                success &= BitConverter.TryWriteBytes(new Span<byte>(s.Array, s.Offset, s.Count), count);
+
+                ArraySegment<byte> sendBuff = SendBufferHelper.Close(count);
+
+                if (success)
+                    Send(sendBuff);
             }
         }
 
