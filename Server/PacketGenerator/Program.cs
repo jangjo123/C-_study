@@ -12,13 +12,18 @@ namespace PacketGenerator
 
         static void Main(string[] args)
         {
+            string pdlPath = "../PDL.xml";
+
             XmlReaderSettings settings = new XmlReaderSettings()
             {
                 IgnoreComments = true, // 주석 무시
                 IgnoreWhitespace = true // 공백 무시
             };
 
-            using (XmlReader r = XmlReader.Create("PDL.xml", settings))
+            if (args.Length >= 1) // 프로그램이 실행될 때 인자를 받았다. 
+                pdlPath = args[0];
+
+            using (XmlReader r = XmlReader.Create(pdlPath, settings))
             {
                 r.MoveToContent(); // 헤더 건너뛰기 -> <?xml version="1.0" encoding="utf-8" ?> <PDL> 를 건너 뜀
 
