@@ -29,7 +29,7 @@ namespace Server
             _handler.Add((ushort)PacketID.PlayerInfoReq, PacketHandler.PlayerInfoReqHandler);
         }
 
-        public void OnRecvPacket (PacketSession session, ArraySegment<byte> buffer)
+        public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
         {
             ushort count = 0;
 
