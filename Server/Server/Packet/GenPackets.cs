@@ -11,14 +11,21 @@ public enum PacketID
 	
 }
 
+interface IPacket
+{
+	ushort Protocol { get; }
+	void Read(ArraySegment<byte> segment);
+	ArraySegment<byte> Write();
+}
 
-class PlayerInfoReq
+
+class PlayerInfoReq : IPacket
 {
     public byte testByte;
 	public long playerId;
 	public string name;
 	
-	public struct Skill
+	public class Skill
 	{
 	    public int id;
 		public short level;
@@ -30,7 +37,7 @@ class PlayerInfoReq
 		
 		    public void Read(ReadOnlySpan<byte> s, ref ushort count)
 		    {
-		        this.att = BitConverter.ToUInt32(s.Slice(count, s.Length - count));
+		        this.att = (int)BitConverter.ToUInt32(s.Slice(count, s.Length - count));
 				count += sizeof(int);
 		    }
 		
@@ -48,7 +55,7 @@ class PlayerInfoReq
 	
 	    public void Read(ReadOnlySpan<byte> s, ref ushort count)
 	    {
-	        this.id = BitConverter.ToUInt32(s.Slice(count, s.Length - count));
+	        this.id = (int)BitConverter.ToUInt32(s.Slice(count, s.Length - count));
 			count += sizeof(int);
 			this.level = BitConverter.ToInt16(s.Slice(count, s.Length - count));
 			count += sizeof(short);
@@ -85,6 +92,8 @@ class PlayerInfoReq
 	
 	public List<Skill> skills = new List<Skill>();
 
+    public ushort Protocol { get { return (ushort)PacketID.PlayerInfoReq; } }
+
     public void Read(ArraySegment<byte> segment)
     {
         ushort count = 0;
@@ -94,7 +103,7 @@ class PlayerInfoReq
         count += sizeof(ushort);
         this.testByte = (byte)segment.Array[segment.Offset + count];
 		count += sizeof(byte);
-		this.playerId = BitConverter.ToUInt64(s.Slice(count, s.Length - count));
+		this.playerId = (long)BitConverter.ToUInt64(s.Slice(count, s.Length - count));
 		count += sizeof(long);
 		ushort nameLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
 		count += sizeof(ushort);
@@ -143,9 +152,11 @@ class PlayerInfoReq
     }
 } 
 
-class Test
+class Test : IPacket
 {
     public int testInt;
+
+    public ushort Protocol { get { return (ushort)PacketID.Test; } }
 
     public void Read(ArraySegment<byte> segment)
     {
@@ -154,7 +165,7 @@ class Test
         ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
         count += sizeof(ushort);
         count += sizeof(ushort);
-        this.testInt = BitConverter.ToUInt32(s.Slice(count, s.Length - count));
+        this.testInt = (int)BitConverter.ToUInt32(s.Slice(count, s.Length - count));
 		count += sizeof(int);
         
     }
