@@ -6,7 +6,7 @@ using ServerCore;
 
 public enum PacketID
 {
-    PlayerInfoReq = 1,
+	PlayerInfoReq = 1,
 	Test = 2,
 	
 }
@@ -14,41 +14,37 @@ public enum PacketID
 
 class PlayerInfoReq
 {
-    public byte testByte;
+	public sbyte testByte;
 	public long playerId;
 	public string name;
-	
-	public struct Skill
+	public class Skill
 	{
-	    public int id;
+		public int id;
 		public short level;
 		public float duration;
-		
-		public struct Attribute
+		public class Attribute
 		{
-		    public int att;
+			public int att;
 		
-		    public void Read(ReadOnlySpan<byte> s, ref ushort count)
-		    {
-		        this.att = BitConverter.ToUInt32(s.Slice(count, s.Length - count));
+			public void Read(ReadOnlySpan<byte> s, ref ushort count)
+			{
+				this.att = BitConverter.ToInt32(s.Slice(count, s.Length - count));
 				count += sizeof(int);
-		    }
+			}
 		
-		    public bool Write(Span<byte> s, ref ushort count)
-		    {
-		        bool success = true;
-		        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.att);
+			public bool Write(Span<byte> s, ref ushort count)
+			{
+				bool success = true;
+				success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.att);
 				count += sizeof(int);
-		        return success;
-		    }
-		
+				return success;
+			}	
 		}
-		
 		public List<Attribute> attributes = new List<Attribute>();
 	
-	    public void Read(ReadOnlySpan<byte> s, ref ushort count)
-	    {
-	        this.id = BitConverter.ToUInt32(s.Slice(count, s.Length - count));
+		public void Read(ReadOnlySpan<byte> s, ref ushort count)
+		{
+			this.id = BitConverter.ToInt32(s.Slice(count, s.Length - count));
 			count += sizeof(int);
 			this.level = BitConverter.ToInt16(s.Slice(count, s.Length - count));
 			count += sizeof(short);
@@ -59,16 +55,16 @@ class PlayerInfoReq
 			count += sizeof(ushort);
 			for (int i = 0; i < attributeLen; i++)
 			{
-			    Attribute attribute = new Attribute();
-			    attribute.Read(s, ref count);
-			    attributes.Add(attribute);
+				Attribute attribute = new Attribute();
+				attribute.Read(s, ref count);
+				attributes.Add(attribute);
 			}
-	    }
+		}
 	
-	    public bool Write(Span<byte> s, ref ushort count)
-	    {
-	        bool success = true;
-	        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.id);
+		public bool Write(Span<byte> s, ref ushort count)
+		{
+			bool success = true;
+			success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.id);
 			count += sizeof(int);
 			success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.level);
 			count += sizeof(short);
@@ -77,24 +73,22 @@ class PlayerInfoReq
 			success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)this.attributes.Count);
 			count += sizeof(ushort);
 			foreach (Attribute attribute in this.attributes)
-			    success &= attribute.Write(s, ref count);
-	        return success;
-	    }
-	
+				success &= attribute.Write(s, ref count);
+			return success;
+		}	
 	}
-	
 	public List<Skill> skills = new List<Skill>();
 
-    public void Read(ArraySegment<byte> segment)
-    {
-        ushort count = 0;
+	public void Read(ArraySegment<byte> segment)
+	{
+		ushort count = 0;
 
-        ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
-        count += sizeof(ushort);
-        count += sizeof(ushort);
-        this.testByte = (byte)segment.Array[segment.Offset + count];
-		count += sizeof(byte);
-		this.playerId = BitConverter.ToUInt64(s.Slice(count, s.Length - count));
+		ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
+		count += sizeof(ushort);
+		count += sizeof(ushort);
+		this.testByte = (sbyte)segment.Array[segment.Offset + count];
+		count += sizeof(sbyte);
+		this.playerId = BitConverter.ToInt64(s.Slice(count, s.Length - count));
 		count += sizeof(long);
 		ushort nameLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
 		count += sizeof(ushort);
@@ -105,26 +99,25 @@ class PlayerInfoReq
 		count += sizeof(ushort);
 		for (int i = 0; i < skillLen; i++)
 		{
-		    Skill skill = new Skill();
-		    skill.Read(s, ref count);
-		    skills.Add(skill);
+			Skill skill = new Skill();
+			skill.Read(s, ref count);
+			skills.Add(skill);
 		}
-        
-    }
+	}
 
-    public ArraySegment<byte> Write()
-    {
-        ArraySegment<byte> segment = SendBufferHelper.Open(4096);
-        ushort count = 0; // 지금까지 버퍼에 몇 바이트가 있는지 추적
-        bool success = true;
+	public ArraySegment<byte> Write()
+	{
+		ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+		ushort count = 0;
+		bool success = true;
 
-        Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
+		Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
-        count += sizeof(ushort);
-        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)PacketID.PlayerInfoReq);
-        count += sizeof(ushort);
-        segment.Array[segment.Offset + count] = (byte)this.testByte;
-		count += sizeof(byte);
+		count += sizeof(ushort);
+		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)PacketID.PlayerInfoReq);
+		count += sizeof(ushort);
+		segment.Array[segment.Offset + count] = (byte)this.testByte;
+		count += sizeof(sbyte);
 		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.playerId);
 		count += sizeof(long);
 		ushort nameLen = (ushort)Encoding.Unicode.GetBytes(this.name, 0, this.name.Length, segment.Array, segment.Offset + count + sizeof(ushort));
@@ -134,49 +127,46 @@ class PlayerInfoReq
 		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)this.skills.Count);
 		count += sizeof(ushort);
 		foreach (Skill skill in this.skills)
-		    success &= skill.Write(s, ref count);
-        // size
-        success &= BitConverter.TryWriteBytes(s, count);
-        if (success == false)
-            return null;
-        return SendBufferHelper.Close(count);
-    }
-} 
+			success &= skill.Write(s, ref count);
+		success &= BitConverter.TryWriteBytes(s, count);
+		if (success == false)
+			return null;
+		return SendBufferHelper.Close(count);
+	}
+}
 
 class Test
 {
-    public int testInt;
+	public int testInt;
 
-    public void Read(ArraySegment<byte> segment)
-    {
-        ushort count = 0;
+	public void Read(ArraySegment<byte> segment)
+	{
+		ushort count = 0;
 
-        ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
-        count += sizeof(ushort);
-        count += sizeof(ushort);
-        this.testInt = BitConverter.ToUInt32(s.Slice(count, s.Length - count));
+		ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
+		count += sizeof(ushort);
+		count += sizeof(ushort);
+		this.testInt = BitConverter.ToInt32(s.Slice(count, s.Length - count));
 		count += sizeof(int);
-        
-    }
+	}
 
-    public ArraySegment<byte> Write()
-    {
-        ArraySegment<byte> segment = SendBufferHelper.Open(4096);
-        ushort count = 0; // 지금까지 버퍼에 몇 바이트가 있는지 추적
-        bool success = true;
+	public ArraySegment<byte> Write()
+	{
+		ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+		ushort count = 0;
+		bool success = true;
 
-        Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
+		Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
-        count += sizeof(ushort);
-        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)PacketID.Test);
-        count += sizeof(ushort);
-        success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.testInt);
+		count += sizeof(ushort);
+		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)PacketID.Test);
+		count += sizeof(ushort);
+		success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.testInt);
 		count += sizeof(int);
-        // size
-        success &= BitConverter.TryWriteBytes(s, count);
-        if (success == false)
-            return null;
-        return SendBufferHelper.Close(count);
-    }
-} 
+		success &= BitConverter.TryWriteBytes(s, count);
+		if (success == false)
+			return null;
+		return SendBufferHelper.Close(count);
+	}
+}
 

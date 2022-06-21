@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PDL>
   <packet name="C_Chat">
-	 <string name="chat"/>
+	<string name="chat"/>
   </packet>
   <packet name="S_Chat">
 	<int name="playerId"/>
