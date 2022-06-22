@@ -23,7 +23,6 @@ namespace DummyClient
 					movePacket.posX = _rand.Next(-50, 50);
 					movePacket.posY = 0;
 					movePacket.posZ = _rand.Next(-50, 50);
-
 					session.Send(movePacket.Write());
 				}
 			}

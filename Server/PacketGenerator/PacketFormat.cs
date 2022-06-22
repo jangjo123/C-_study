@@ -43,13 +43,12 @@ public class PacketManager
 
 		Func<PacketSession, ArraySegment<byte>, IPacket> func = null;
 		if (_makeFunc.TryGetValue(id, out func))
-        {{
+		{{
 			IPacket packet = func.Invoke(session, buffer);
 			if (onRecvCallback != null)
 				onRecvCallback.Invoke(session, packet);
 			else
 				HandlePacket(session, packet);
-
 		}}
 	}}
 
@@ -61,7 +60,7 @@ public class PacketManager
 	}}
 
 	public void HandlePacket(PacketSession session, IPacket packet)
-    {{
+	{{
 		Action<PacketSession, IPacket> action = null;
 		if (_handler.TryGetValue(packet.Protocol, out action))
 			action.Invoke(session, packet);

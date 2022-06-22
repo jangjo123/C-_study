@@ -23,10 +23,10 @@ public class PacketManager
 		_handler.Add((ushort)PacketID.S_BroadcastEnterGame, PacketHandler.S_BroadcastEnterGameHandler);
 		_makeFunc.Add((ushort)PacketID.S_BroadcastLeaveGame, MakePacket<S_BroadcastLeaveGame>);
 		_handler.Add((ushort)PacketID.S_BroadcastLeaveGame, PacketHandler.S_BroadcastLeaveGameHandler);
-		_makeFunc.Add((ushort)PacketID.S_playerList, MakePacket<S_playerList>);
-		_handler.Add((ushort)PacketID.S_playerList, PacketHandler.S_playerListHandler);
-		_makeFunc.Add((ushort)PacketID.S_BoradcastMove, MakePacket<S_BoradcastMove>);
-		_handler.Add((ushort)PacketID.S_BoradcastMove, PacketHandler.S_BoradcastMoveHandler);
+		_makeFunc.Add((ushort)PacketID.S_PlayerList, MakePacket<S_PlayerList>);
+		_handler.Add((ushort)PacketID.S_PlayerList, PacketHandler.S_PlayerListHandler);
+		_makeFunc.Add((ushort)PacketID.S_BroadcastMove, MakePacket<S_BroadcastMove>);
+		_handler.Add((ushort)PacketID.S_BroadcastMove, PacketHandler.S_BroadcastMoveHandler);
 
 	}
 
@@ -41,13 +41,12 @@ public class PacketManager
 
 		Func<PacketSession, ArraySegment<byte>, IPacket> func = null;
 		if (_makeFunc.TryGetValue(id, out func))
-        {
+		{
 			IPacket packet = func.Invoke(session, buffer);
 			if (onRecvCallback != null)
 				onRecvCallback.Invoke(session, packet);
 			else
 				HandlePacket(session, packet);
-
 		}
 	}
 
@@ -59,7 +58,7 @@ public class PacketManager
 	}
 
 	public void HandlePacket(PacketSession session, IPacket packet)
-    {
+	{
 		Action<PacketSession, IPacket> action = null;
 		if (_handler.TryGetValue(packet.Protocol, out action))
 			action.Invoke(session, packet);

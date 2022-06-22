@@ -18,10 +18,8 @@ namespace Server
 
 		public void Flush()
 		{
-			// N ^ 2
 			foreach (ClientSession s in _sessions)
 				s.Send(_pendingList);
-
 			//Console.WriteLine($"Flushed {_pendingList.Count} items");
 			_pendingList.Clear();
 		}
@@ -38,23 +36,23 @@ namespace Server
 			session.Room = this;
 
 			// 신입생한테 모든 플레이어 목록 전송
-			S_playerList players = new S_playerList();
+			S_PlayerList players = new S_PlayerList();
 			foreach (ClientSession s in _sessions)
-            {
-				players.players.Add(new S_playerList.Player()
+			{
+				players.players.Add(new S_PlayerList.Player()
 				{
 					isSelf = (s == session),
-					playerID = s.SessionId,
+					playerId = s.SessionId,
 					posX = s.PosX,
 					posY = s.PosY,
-					posZ = s.PosZ
+					posZ = s.PosZ,
 				});
-            }
+			}
 			session.Send(players.Write());
 
 			// 신입생 입장을 모두에게 알린다
 			S_BroadcastEnterGame enter = new S_BroadcastEnterGame();
-			enter.playerID = session.SessionId;
+			enter.playerId = session.SessionId;
 			enter.posX = 0;
 			enter.posY = 0;
 			enter.posZ = 0;
@@ -73,15 +71,15 @@ namespace Server
 		}
 
 		public void Move(ClientSession session, C_Move packet)
-        {
+		{
 			// 좌표 바꿔주고
 			session.PosX = packet.posX;
 			session.PosY = packet.posY;
 			session.PosZ = packet.posZ;
 
 			// 모두에게 알린다
-			S_BoradcastMove move = new S_BoradcastMove();
-			move.playerID = session.SessionId;
+			S_BroadcastMove move = new S_BroadcastMove();
+			move.playerId = session.SessionId;
 			move.posX = session.PosX;
 			move.posY = session.PosY;
 			move.posZ = session.PosZ;
