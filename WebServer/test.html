@@ -1,13 +1,26 @@
-<style>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>거날의 웹페이지</title>
+  <style>
     table, th, td {
       border: 1px solid black;
     }
-</style>
 
-<h1>[C#과 유니티로 만드는 <i>MMORPG</i> 게임 개발 시리즈]</h1> <u>Part6</u>: <b>웹</b> <br><br> <string>서버</string>
+    h1 {
+        border-bottom: 1px solid red;
+        padding-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+
+<h1><span style="color:blue;font-weight:bold">[C#과 유니티로 만드는</span> <i>MMORPG</i> 게임 개발 시리즈]</h1> <u>Part6</u>: <b>웹</b> <br><br> <string>서버</string>
 <!-- 주석 -->
 
-<p>
+<p style="color:blue;font-weight:bold">
     Intro : 시작에 대한 궁시렁~~
 </p>
 
@@ -31,33 +44,55 @@
   </ol>
   
   <p>당신이 좋아하는 게임 장르는?</p>
-  <ul> <!--순서가 없음-->
-    <li>MMORPG</li>
-    <li>FPS</li>
-    <li>RTS</li>
-  </ul>
+<ul> <!--순서가 없음-->
+  <li>MMORPG</li>
+  <li>FPS</li>
+  <li>RTS</li>
+</ul>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Month</th>
-        <th>Savings</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>January</td>
-        <td>$100</td>
-      </tr>
-      <tr>
-        <td>February</td>
-        <td>$80</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td>Sum</td>
-        <td>$180</td>
-      </tr>
-    </tfoot>
-  </table>
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Savings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>January</td>
+      <td>$100</td>
+    </tr>
+    <tr>
+      <td>February</td>
+      <td>$80</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Sum</td>
+      <td>$180</td>
+    </tr>
+  </tfoot>
+</table>
+
+<button type="button" onclick="testFunc()">
+  <img src="거북이.png" alt="이미지 못 찾음" width="100" height="100">
+</button>
+
+<form action="www.naver.com">
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <label for="lname">Last name:</label>
+  <input type="text" id="lname" name="lname"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+
+  function testFunc(){
+    alert('Hello world!')
+  }
+
+</script>
+</body>
+</html>
