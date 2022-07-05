@@ -1,0 +1,14 @@
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\bin\Debug\netcoreapp3.1\Study.exe
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\bin\Debug\netcoreapp3.1\Study.deps.json
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\bin\Debug\netcoreapp3.1\Study.runtimeconfig.json
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\bin\Debug\netcoreapp3.1\Study.runtimeconfig.dev.json
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\bin\Debug\netcoreapp3.1\Study.dll
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\bin\Debug\netcoreapp3.1\Study.pdb
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.csproj.AssemblyReference.cache
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.AssemblyInfoInputs.cache
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.AssemblyInfo.cs
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.csproj.CoreCompileInputs.cache
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.dll
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.pdb
+D:\Github_jangjo123\C-_study\WebServer\Study\Study\obj\Debug\netcoreapp3.1\Study.genruntimeconfig.cache
