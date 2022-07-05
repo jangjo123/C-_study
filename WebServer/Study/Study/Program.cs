@@ -18,6 +18,7 @@ namespace Study
         public int Level { get; set; }
         public int Hp { get; set; }
         public int Attack { get; set; }
+        public List<int> Items { get; set; } = new List<int>();
     }
 
     class Program
@@ -53,6 +54,9 @@ namespace Study
                 };
 
                 _players.Add(player);
+
+                for (int j = 0; j < 5; j++)
+                    player.Items.Add(rand.Next(1, 101));
             }
 
             // 일반 버전
@@ -81,6 +85,51 @@ namespace Study
                 {
                     Console.WriteLine($"{p.Level} {p.Hp}");
                 }
+            }
+
+            // 중첩 from
+            // ex) 모든 아이템 목록을 추출 (아이템ID < 30)
+            {
+                var playerItems =   from p in _players
+                                    from i in p.Items
+                                    where i < 30
+                                    select new { p, i };
+
+                var li = playerItems.ToList();
+            }
+
+            // grouping
+            {
+                var playersByLevel = from p in _players
+                                     group p by p.Level into g
+                                     orderby g.Key
+                                     select new { g.Key, Players = g };
+            }
+
+            // join (내부 조인)
+            // outer join (외부 조인)
+            {
+                List<int> levels = new List<int>() { 1, 5, 10 };
+
+                var playerLevles = 
+                    from p in _players
+                    join l in levels
+                    on p.Level equals l
+                    select p;
+            }
+
+            // LINQ 표준 연산자
+            {
+                var players =
+                    from p in _players
+                    where p.ClassType == ClassType.Knight && p.Level >= 50
+                    orderby p.Level ascending
+                    select p;
+
+                var players2 = _players
+                        .Where(p => p.ClassType == ClassType.Knight && p.Level >= 50)
+                        .OrderBy(p => p.Level)
+                        .Select(p => p);
             }
         }
 
