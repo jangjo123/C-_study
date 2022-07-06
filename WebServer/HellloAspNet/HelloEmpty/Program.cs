@@ -12,6 +12,11 @@ namespace HelloEmpty
     // M (Model)        데이터 (원자재)
     // V (View)         UI (인테리어)
     // C (Controller)   Controller (액션)
+
+    // Razor Page
+    // M
+    // VC
+    // M - V - VM
     public class Program
     {
         public static void Main(string[] args)
