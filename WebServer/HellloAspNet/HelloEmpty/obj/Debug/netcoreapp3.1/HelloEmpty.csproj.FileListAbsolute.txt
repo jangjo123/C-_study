@@ -21,13 +21,4 @@ D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcore
 D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\bin\Debug\netcoreapp3.1\HelloEmpty.Views.dll
 D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\bin\Debug\netcoreapp3.1\HelloEmpty.Views.pdb
 D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.csproj.AssemblyReference.cache
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.RazorAssemblyInfo.cache
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.RazorAssemblyInfo.cs
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.TagHelpers.input.cache
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.TagHelpers.output.cache
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.RazorCoreGenerate.cache
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.RazorTargetAssemblyInfo.cs
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.Views.pdb
 D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\HelloEmpty.csproj.CopyComplete
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\Razor\Pages\_ViewImports.cshtml.g.cs
-D:\Github_jangjo123\C-_study\WebServer\HellloAspNet\HelloEmpty\obj\Debug\netcoreapp3.1\Razor\Pages\Test\Index.cshtml.g.cs
