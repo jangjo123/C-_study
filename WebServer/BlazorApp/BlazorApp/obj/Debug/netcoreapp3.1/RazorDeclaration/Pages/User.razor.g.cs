@@ -75,8 +75,15 @@ using BlazorApp.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/binding")]
-    public partial class Binding : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 3 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\User.razor"
+using BlazorApp.Data;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/user")]
+    public partial class User : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -84,11 +91,30 @@ using BlazorApp.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 8 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\Binding.razor"
+#line 35 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\User.razor"
        
 
-    int _value = 15;
+    List<UserData> _users = new List<UserData>();
 
+    string _inputName;
+
+    protected override void OnInitialized()
+    {
+        _users.Add(new UserData() { Name = "User1" });
+        _users.Add(new UserData() { Name = "User2" });
+        _users.Add(new UserData() { Name = "User3" });
+    }
+
+    void AddUser()
+    {
+        _users.Add(new UserData() { Name = _inputName });
+        _inputName = "";
+    }
+
+    void KickUser(UserData user)
+    {
+        _users.Remove(user);
+    }
 
 #line default
 #line hidden
