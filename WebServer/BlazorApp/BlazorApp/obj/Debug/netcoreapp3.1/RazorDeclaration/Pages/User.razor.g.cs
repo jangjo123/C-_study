@@ -91,8 +91,11 @@ using BlazorApp.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 23 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\User.razor"
+#line 34 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\User.razor"
        
+
+    string _selectedColor = "Green";
+    List<string> _options = new List<string>() { "Green", "Red", "Blue" };
 
     List<UserData> _users = new List<UserData>();
     ShowUser _showUser;
@@ -100,7 +103,7 @@ using BlazorApp.Data;
     string _inputName;
     string _btnClass = "btn btn-primary";
 
-    
+
 
     void AddUser()
     {
@@ -116,7 +119,7 @@ using BlazorApp.Data;
     void CallbackTestFunc()
     {
         _inputName = "CallbackTest";
-        StateHasChanged();
+        //StateHasChanged();
     }
 
 #line default

@@ -90,14 +90,16 @@ using BlazorApp.Data;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 19 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\ShowUser.razor"
+#line 21 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\ShowUser.razor"
        
+    [CascadingParameter (Name = "ThemeColor")]
+    string _color { get; set; }
 
     [Parameter]
     public List<UserData> Users { get; set; }
 
     [Parameter]
-    public Action CallbackTest { get; set; }
+    public EventCallback CallbackTest { get; set; }
 
     protected override void OnInitialized()
     {
@@ -115,7 +117,7 @@ using BlazorApp.Data;
     {
         Users.Remove(user);
 
-        CallbackTest.Invoke();
+        CallbackTest.InvokeAsync(null);
     }
 
 
