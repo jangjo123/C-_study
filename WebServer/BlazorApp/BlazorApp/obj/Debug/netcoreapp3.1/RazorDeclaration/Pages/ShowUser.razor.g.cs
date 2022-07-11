@@ -76,14 +76,13 @@ using BlazorApp.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\Counter.razor"
-using System.Threading;
+#line 1 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\ShowUser.razor"
+using BlazorApp.Data;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
-    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class ShowUser : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -91,26 +90,34 @@ using System.Threading;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 12 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\Counter.razor"
+#line 19 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\ShowUser.razor"
        
-    private int currentCount = 0;
 
-    private void IncrementCount()
+    [Parameter]
+    public List<UserData> Users { get; set; }
+
+    [Parameter]
+    public Action CallbackTest { get; set; }
+
+    protected override void OnInitialized()
     {
-        currentCount++;
+        Users.Add(new UserData() { Name = "User1" });
+        Users.Add(new UserData() { Name = "User2" });
+        Users.Add(new UserData() { Name = "User3" });
     }
 
-    void AutoIncrement()
+    public void AddUser(UserData user)
     {
-        var timer = new Timer(x =>
-        {
-            InvokeAsync(() =>
-            {
-                IncrementCount();
-                StateHasChanged();
-            });
-        }, null, 1000, 1000);
+        Users.Add(user);
     }
+
+    public void KickUser(UserData user)
+    {
+        Users.Remove(user);
+
+        CallbackTest.Invoke();
+    }
+
 
 #line default
 #line hidden

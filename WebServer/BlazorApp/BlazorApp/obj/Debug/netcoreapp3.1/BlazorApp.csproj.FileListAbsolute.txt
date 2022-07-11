@@ -52,3 +52,5 @@ D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\obj\Debug\netcoreapp3
 D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\obj\Debug\netcoreapp3.1\BlazorApp.csproj.CopyComplete
 D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\User.razor.g.cs
 D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\obj\Debug\netcoreapp3.1\Razor\Pages\User.razor.g.cs
+D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ShowUser.razor.g.cs
+D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\obj\Debug\netcoreapp3.1\Razor\Pages\ShowUser.razor.g.cs
