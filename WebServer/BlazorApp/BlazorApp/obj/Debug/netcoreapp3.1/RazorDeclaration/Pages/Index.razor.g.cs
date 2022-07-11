@@ -75,6 +75,13 @@ using BlazorApp.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\Index.razor"
+using BlazorApp.Data;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -83,6 +90,24 @@ using BlazorApp.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 28 "D:\Github_jangjo123\C-_study\WebServer\BlazorApp\BlazorApp\Pages\Index.razor"
+      
+
+    protected override void OnInitialized()
+    {
+
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ScopedService scoped { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private TransientService transient { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private SingletonService singleton { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private PaymentService paymentService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IFoodService foodService { get; set; }
     }
 }
 #pragma warning restore 1591
