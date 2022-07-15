@@ -1,0 +1,10 @@
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\bin\Debug\netcoreapp3.1\ShareData.deps.json
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\bin\Debug\netcoreapp3.1\ShareData.dll
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\bin\Debug\netcoreapp3.1\ShareData.pdb
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.csproj.AssemblyReference.cache
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.AssemblyInfoInputs.cache
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.AssemblyInfo.cs
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.csproj.CoreCompileInputs.cache
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.dll
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\ShareData\obj\Debug\netcoreapp3.1\ShareData.pdb
