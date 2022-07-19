@@ -105,3 +105,5 @@ D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\obj\Debug\netcoreap
 D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\obj\Debug\netcoreapp3.1\RankingApp.genruntimeconfig.cache
 D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Ranking.razor.g.cs
 D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\obj\Debug\netcoreapp3.1\Razor\Pages\Ranking.razor.g.cs
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\bin\Debug\netcoreapp3.1\ShareData.dll
+D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\bin\Debug\netcoreapp3.1\ShareData.pdb

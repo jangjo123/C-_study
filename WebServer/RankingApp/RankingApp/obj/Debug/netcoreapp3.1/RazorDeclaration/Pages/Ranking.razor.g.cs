@@ -77,7 +77,7 @@ using RankingApp.Shared;
 #nullable disable
 #nullable restore
 #line 2 "D:\Github_jangjo123\C-_study\WebServer\RankingApp\RankingApp\Pages\Ranking.razor"
-using RankingApp.Data.Models;
+using ShareData.Models;
 
 #line default
 #line hidden
@@ -139,11 +139,11 @@ using RankingApp.Data.Services;
         if (_gameResult.Id == 0)
         {
             _gameResult.DateTime = DateTime.Now;
-            var result = RankingService.AddGameResult(_gameResult);
+            var result = await RankingService.AddGameResult(_gameResult);
         }
         else
         {
-            var result = RankingService.UpdateGameResult(_gameResult);
+            var result = await RankingService.UpdateGameResult(_gameResult);
         }
 
         _showPopup = false;
