@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RankingApp", "RankingApp\RankingApp.csproj", "{0993AD53-4EB6-4ED6-B359-097738B60B31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareData", "ShareData\ShareData.csproj", "{EB589B5C-9998-446C-BBFC-F84CD7F8D8EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{C03B68D5-10EF-46C8-B809-F113D25E97D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0993AD53-4EB6-4ED6-B359-097738B60B31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0993AD53-4EB6-4ED6-B359-097738B60B31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0993AD53-4EB6-4ED6-B359-097738B60B31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0993AD53-4EB6-4ED6-B359-097738B60B31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB589B5C-9998-446C-BBFC-F84CD7F8D8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB589B5C-9998-446C-BBFC-F84CD7F8D8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB589B5C-9998-446C-BBFC-F84CD7F8D8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB589B5C-9998-446C-BBFC-F84CD7F8D8EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03B68D5-10EF-46C8-B809-F113D25E97D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03B68D5-10EF-46C8-B809-F113D25E97D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03B68D5-10EF-46C8-B809-F113D25E97D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03B68D5-10EF-46C8-B809-F113D25E97D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31FD482F-B14D-42D7-9B3C-45C38ABB8E38}
+	EndGlobalSection
+EndGlobal
