@@ -118,7 +118,7 @@ public class PlayerController : CreatureController
 		}
 
 		// 스킬 상태로 갈지 확인
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetKey(KeyCode.J))
 		{
 			State = CreatureState.Skill;
 			//_coSkill = StartCoroutine("CoStartPunch");
@@ -182,4 +182,9 @@ public class PlayerController : CreatureController
 		State = CreatureState.Idle;
 		_coSkill = null;
 	}
+
+    public override void OnDamaged()
+    {
+		Debug.Log("Player HIT !");
+    }
 }
