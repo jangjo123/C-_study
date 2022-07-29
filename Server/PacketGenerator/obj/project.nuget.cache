@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "dY9dSvwYVacH2U1h+l9MqV4CCcKJKBJFSmWQtgKQwlVq+AJWiobrbvo4b6JxugjjBYgBxOEvxQvmGlm4EoGlzw==",
+  "dgSpecHash": "k+jdJONscKXc1ouAQVGfc55oEdZmWSLOWBCO5Sf5ELJ5CHdDIjK4O+XJMJ24IBZGjtTVifpHc1GgPg8fl/QClQ==",
   "success": true,
   "projectFilePath": "D:\\Github_jangjo123\\C-_study\\Server\\PacketGenerator\\PacketGenerator.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\google.protobuf\\3.12.3\\google.protobuf.3.12.3.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512"
+  ],
   "logs": []
 }
