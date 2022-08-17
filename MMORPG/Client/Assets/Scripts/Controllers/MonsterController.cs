@@ -56,7 +56,7 @@ public class MonsterController : CreatureController
 		Dir = MoveDir.None;
 
 		_speed = 3.0f;
-		_rangedSkill = (Random.Range(0, 2) == 0? true : false);
+		_rangedSkill = (Random.Range(0, 2) == 0 ? true : false);
 
 		if (_rangedSkill)
 			_skillRange = 10.0f;
@@ -88,7 +88,7 @@ public class MonsterController : CreatureController
 
 			Vector3Int dir = destPos - CellPos;
 			if (dir.magnitude <= _skillRange && (dir.x == 0 || dir.y == 0))
-            {
+			{
 				Dir = GetDirFromVec(dir);
 				State = CreatureState.Skill;
 
@@ -96,8 +96,9 @@ public class MonsterController : CreatureController
 					_coSkill = StartCoroutine("CoStartShootArrow");
 				else
 					_coSkill = StartCoroutine("CoStartPunch");
+
 				return;
-            }
+			}
 		}
 
 		List<Vector3Int> path = Managers.Map.FindPath(CellPos, destPos, ignoreDestCollision: true);

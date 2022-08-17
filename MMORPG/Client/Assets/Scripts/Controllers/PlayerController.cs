@@ -183,8 +183,8 @@ public class PlayerController : CreatureController
 		_coSkill = null;
 	}
 
-    public override void OnDamaged()
-    {
+	public override void OnDamaged()
+	{
 		Debug.Log("Player HIT !");
-    }
+	}
 }

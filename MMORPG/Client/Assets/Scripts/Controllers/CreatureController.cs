@@ -49,7 +49,7 @@ public class CreatureController : MonoBehaviour
 	}
 
 	public MoveDir GetDirFromVec(Vector3Int dir)
-    {
+	{
 		if (dir.x > 0)
 			return MoveDir.Right;
 		else if (dir.x < 0)
