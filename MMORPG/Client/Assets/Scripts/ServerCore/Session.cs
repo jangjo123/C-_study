@@ -35,7 +35,6 @@ namespace ServerCore
 				buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
 			}
 
-
 			return processLen;
 		}
 
