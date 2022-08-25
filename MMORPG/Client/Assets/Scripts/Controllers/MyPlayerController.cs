@@ -36,7 +36,7 @@ public class MyPlayerController : PlayerController
 		}
 
 		// 스킬 상태로 갈지 확인
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetKey(KeyCode.J))
 		{
 			State = CreatureState.Skill;
 			//_coSkill = StartCoroutine("CoStartPunch");
