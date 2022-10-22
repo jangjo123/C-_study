@@ -5,7 +5,12 @@ using System.Text;
 
 namespace MMO_EFCore
 {
-    // 클래스 이름 = 테이블 이름 = Player
+    // DB 관계 모델링
+    // 1:1
+    // 1:다
+    // 다:다
+
+    // Entity 클래스 이름 = 테이블 이름 = Player
     [Table("Item")]
     public class Item
     {
@@ -15,16 +20,18 @@ namespace MMO_EFCore
         public DateTime CreateDate { get; set; }
 
         // 다른 클래스 참조 -> FK (Navigational Property)
-        public int OwnerId { get; set; }
+        [ForeignKey("OwnerId")]
         public Player Owner { get; set; }
     }
 
-    // 클래스 이름 = 테이블 이름 = Player
+    // Entity 클래스 이름 = 테이블 이름 = Player
     public class Player
     {
         // 이름Id -> PK
         public int PlayerId { get; set; }
         public string Name { get; set; }
+
+        public Item Item { get; set; }
     }
 
 }

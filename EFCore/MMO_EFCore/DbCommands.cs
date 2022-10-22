@@ -11,10 +11,11 @@ namespace MMO_EFCore
     public class DbCommands
     {
         // 초기화 시간이 좀 걸림
-        public static void InitiakuzeDB(bool forceReset = false)
+        public static void InitiakuzeDB(bool forceReset = false) // 초기화를 할지 말지
         {
             using (AppDbContext db = new AppDbContext())
             {
+                // DB가 만들어져 있는지 체크
                 if (!forceReset && (db.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
                     return;
 
@@ -74,46 +75,25 @@ namespace MMO_EFCore
             }
         }
 
-        // 특정 플레이어가 소지한 아이템들의 CreateDate를 수정
-        public static void UpdateDate()
+        public static void ShowItems()
         {
-            Console.WriteLine("Input Player Name");
-            Console.WriteLine("> ");
+            Console.WriteLine("플레이어 이름을 입력하세요");
+            Console.WriteLine(" > ");
             string name = Console.ReadLine();
 
-            using (var db = new AppDbContext())
-            {
-                var items = db.Items.Include(i => i.Owner)
-                        .Where(i => i.Owner.Name == name);
-
-                foreach (Item item in items)
-                {
-                    item.CreateDate = DateTime.Now;
-                }
-
-                db.SaveChanges();
-            }
-
-            ReadAll();
+            //using(var db = new AppDbContext())
+            //{
+            //    foreach(Player player in db.Players.AsNoTracking().Where(p => p.Name == name).Include(p => p.Items))
+            //    {
+            //        foreach (Item item in player.Items)
+            //        {
+            //            Console.WriteLine($"{item.TemplateId}");
+            //        }
+            //    }
+            //}
         }
 
-        public static void DeleteItem()
-        {
-            Console.WriteLine("Input Player Name");
-            Console.WriteLine("> ");
-            string name = Console.ReadLine();
 
-            using (var db = new AppDbContext())
-            {
-                var items = db.Items.Include(i => i.Owner)
-                        .Where(i => i.Owner.Name == name);
 
-                db.Items.RemoveRange(items);
-
-                db.SaveChanges();
-            }
-
-            ReadAll();
-        }
     }
 }
