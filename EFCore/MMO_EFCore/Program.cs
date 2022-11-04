@@ -23,6 +23,7 @@ namespace MMO_EFCore
                         DbCommands.InitiakuzeDB(forceReset: true);
                         break;
                     case "1":
+                        DbCommands.UpdateTest();
                         break;
                     case "2":
                         break;
