@@ -46,3 +46,4 @@ D:\Github_jangjo123\C-_study\EFCore\MMO_EFCore\obj\Debug\netcoreapp3.1\MMO_EFCor
 D:\Github_jangjo123\C-_study\EFCore\MMO_EFCore\obj\Debug\netcoreapp3.1\MMO_EFCore.dll
 D:\Github_jangjo123\C-_study\EFCore\MMO_EFCore\obj\Debug\netcoreapp3.1\MMO_EFCore.pdb
 D:\Github_jangjo123\C-_study\EFCore\MMO_EFCore\obj\Debug\netcoreapp3.1\MMO_EFCore.genruntimeconfig.cache
+D:\Github_jangjo123\C-_study\EFCore\MMO_EFCore\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

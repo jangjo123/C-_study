@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dtZschpWA1roV66/29FS2wXE1vwkNP9A0jgjlvKk87y3r9Id4NyEXQHejVZGqX+nDS0zYAp+HA2dyVApz5PGbw==",
+  "dgSpecHash": "muIAxEORikZjJVIhJl4BATLz1NIL0SLxZgjm2K+Ox2lPW8z1SIrStvmMHeGfXEULX9CPejjVOYU5kjhw90M3xQ==",
   "success": true,
   "projectFilePath": "D:\\Github_jangjo123\\C-_study\\EFCore\\MMO_EFCore\\MMO_EFCore.csproj",
   "expectedPackageFiles": [
@@ -28,6 +28,7 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
