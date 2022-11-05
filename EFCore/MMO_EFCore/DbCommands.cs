@@ -78,86 +78,58 @@ namespace MMO_EFCore
             db.SaveChanges();
         }
 
+        // Relationship 복습
+        // - Principal Entity (주요 -> Player)
+        // - Dependent Entity (의존적 -> FK 포함하는 쪽 -> Item)
 
-        // Update 3단계
-        // 1) Tracked Entitiy를 얻어 온다
-        // 2) Entity 클래스의 property를 변경 (set)
-        // 3) SaveChanges 호출!
+        // 오늘의 주제:
+        // Q) Dependent 데이터가 Principal 데이터 없이 존재할 수 있을까?
+        // - 1) 주인이 없는 아이템은 불가능!
+        // - 2) 주인이 없는 아이템도 가능 (ex. 로그 차원에서)
 
-        // 오늘의 주제: (Connected vs Disconnected) Update
-        // Disconnected : Update 단계가 한 번에 쭉~ 일어나지 않고, 끊기는 경우
-        // (REST API 등)
-        // 처리하는 2가지 방법
-        // 1) Reload 방식. 필요한 정보만 보내서, 1-2-3 Step
-        // 2) Full Update 방식. 모든 정보를 다 보내고 받아서, 아예 Entity를 다시 만들고 통으로 Update
+        // 그러면 2 케이스 어떻게 구분해서 설정할까?
+        // 답은 Nullable ! int?
+        // FK 그냥 int로 설정하면 1번, Nullable으로 설정하면ㄴ 2번
 
-        public static void ShowGuilds()
+        public static void ShowItems()
         {
             using (AppDbContext db = new AppDbContext())
             {
-                foreach (var guild in db.Guilds.MapGuildToDto())
+                foreach (var item in db.Items.Include(i => i.Owner).ToList())
                 {
-                    Console.WriteLine($"GuildId({guild.GuildId}) GuildName({guild.Name}) MemberCount({guild.MemberCount})");
+                    if (item.Owner == null)
+                        Console.WriteLine($"ItemId({item.ItemId}) TemplateId({item.TemplateId}) Owner(0)");
+                    else
+                        Console.WriteLine($"ItemId({item.ItemId}) TemplateId({item.TemplateId}) OwnerId({item.Owner.PlayerId}), Owner({item.Owner.Name})");
                 }
             }
         }
 
-        // 장점 : 최소한의 정보로 Update 가능
-        // 단점 : Read 두 번 한다.
-        public static void UpdateByReload()
-        {
-            ShowGuilds();
+        // 1) FK가 Nullable이 아니라면
+        // - Player가 지워지면, FK로 해당 Player 참조하는 Item도 같이 삭제됨
+        // 2) FK가 Nullable이라면
+        // - Player가 지워지더라도, KF로 해당 Player 촘조하는 Item은 그대로
 
-            // 외부에서 수정 원하는 데이터의 ID / 정보 넘겨줬다고 가정
-            Console.WriteLine("Input GuildId");
+        public static void Test()
+        {
+            ShowItems();
+
+            Console.WriteLine("Input Delete PlayerId");
             Console.Write(" > ");
             int id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Input GuildName");
-            Console.Write(" > ");
-            string name= Console.ReadLine();
 
             using (AppDbContext db = new AppDbContext())
             {
-                Guild guild = db.Find<Guild>(id);
-                guild.GuildName = name;
+                Player player = db.Players
+                    .Include(p => p.Item)
+                    .Single(p => p.PlayerId == id);
+
+                db.Players.Remove(player);
                 db.SaveChanges();
             }
 
-            Console.WriteLine("--- Update Complete ---");
-            ShowGuilds();
-        }
-
-
-        public static string MakeUpdateJsonStr()
-        {
-            var jsonStr = "{\"GuildId\":1, \"GuildName\":\"Hello\", \"Member\":null,}";
-            return jsonStr;
-        }
-
-        // 장점 : DB에 다시 Read할 필요 없이 바로 Update
-        // 단점 : 모든 정보 필요, 보안 문제 (상대를 신용할 때 사용)
-        public static void UpdateByFull()
-        {
-            ShowGuilds();
-
-            string jsonStr = MakeUpdateJsonStr();
-            Guild guild = JsonConvert.DeserializeObject<Guild>(jsonStr);
-
-            //Guild guild = new Guild()
-            //{
-            //    GuildId = 1,
-            //    GuildName = "TestGuild"
-            //};
-
-            using (AppDbContext db = new AppDbContext())
-            {
-                db.Guilds.Update(guild);
-                db.SaveChanges();
-            }
-
-            Console.WriteLine("--- Update Complete ---");
-            ShowGuilds();
-
+            Console.WriteLine("--- Test Complete --- ");
+            ShowItems();
         }
 
     }
