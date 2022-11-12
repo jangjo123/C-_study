@@ -78,18 +78,6 @@ namespace MMO_EFCore
             db.SaveChanges();
         }
 
-        // Relationship 복습
-        // - Principal Entity (주요 -> Player)
-        // - Dependent Entity (의존적 -> FK 포함하는 쪽 -> Item)
-
-        // 오늘의 주제:
-        // Q) Dependent 데이터가 Principal 데이터 없이 존재할 수 있을까?
-        // - 1) 주인이 없는 아이템은 불가능!
-        // - 2) 주인이 없는 아이템도 가능 (ex. 로그 차원에서)
-
-        // 그러면 2 케이스 어떻게 구분해서 설정할까?
-        // 답은 Nullable ! int?
-        // FK 그냥 int로 설정하면 1번, Nullable으로 설정하면ㄴ 2번
 
         public static void ShowItems()
         {
@@ -105,16 +93,12 @@ namespace MMO_EFCore
             }
         }
 
-        // 1) FK가 Nullable이 아니라면
-        // - Player가 지워지면, FK로 해당 Player 참조하는 Item도 같이 삭제됨
-        // 2) FK가 Nullable이라면
-        // - Player가 지워지더라도, KF로 해당 Player 촘조하는 Item은 그대로
-
-        public static void Test()
+        // Update RElationship 1v1
+        public static void Update_1v1()
         {
             ShowItems();
 
-            Console.WriteLine("Input Delete PlayerId");
+            Console.WriteLine("Input ItemSwitch PlayerId");
             Console.Write(" > ");
             int id = int.Parse(Console.ReadLine());
 
@@ -124,7 +108,18 @@ namespace MMO_EFCore
                     .Include(p => p.Item)
                     .Single(p => p.PlayerId == id);
 
-                db.Players.Remove(player);
+                if (player.Item != null)
+                {
+                    player.Item.TemplateId = 888;
+                    player.Item.CreateDate = DateTime.Now;
+                }
+
+                //player.Item = new Item()
+                //{
+                //    TemplateId = 777,
+                //    CreateDate = DateTime.Now
+                //};
+
                 db.SaveChanges();
             }
 
@@ -132,5 +127,42 @@ namespace MMO_EFCore
             ShowItems();
         }
 
+        public static void ShowGuild()
+        {
+            using (AppDbContext db = new AppDbContext())
+            {
+                foreach (var guild in db.Guilds.Include(g => g.Members).ToList())
+                {
+                    Console.WriteLine($"GuildId({guild.GuildId}) GuildName({guild.GuildName}) MemberCount({guild.Members.Count})");
+                }
+            }
+        }
+
+        // Update RElationship 1vM
+        public static void Update_1vM()
+        {
+            ShowGuild();
+
+            Console.WriteLine("Input GuildId");
+            Console.Write(" > ");
+            int id = int.Parse(Console.ReadLine());
+
+            using (AppDbContext db = new AppDbContext())
+            {
+                Guild guild = db.Guilds
+                    .Include(g => g.Members)
+                    .Single(g => g.GuildId == id);
+
+                guild.Members.Add(new Player()
+                {
+                    Name = "Dopa"
+                });
+
+                db.SaveChanges();
+            }
+
+            Console.WriteLine("--- Test Complete --- ");
+            ShowGuild();
+        }
     }
 }
