@@ -83,49 +83,24 @@ namespace MMO_EFCore
         {
             using (AppDbContext db = new AppDbContext())
             {
-                foreach (var item in db.Items.Include(i => i.Owner).ToList())
+                foreach (var item in db.Items.Include(i => i.Owner).IgnoreQueryFilters().ToList())
                 {
-                    if (item.Owner == null)
-                        Console.WriteLine($"ItemId({item.ItemId}) TemplateId({item.TemplateId}) Owner(0)");
+                    if (item.SoftDeleted)
+                    {
+                        Console.WriteLine($"DELETED - ItemId({item.ItemId}) TemplateId({item.TemplateId})");
+                    }
                     else
-                        Console.WriteLine($"ItemId({item.ItemId}) TemplateId({item.TemplateId}) OwnerId({item.Owner.PlayerId}), Owner({item.Owner.Name})");
+                    {
+                        if (item.Owner == null)
+                            Console.WriteLine($"ItemId({item.ItemId}) TemplateId({item.TemplateId}) Owner(0)");
+                        else
+                            Console.WriteLine($"ItemId({item.ItemId}) TemplateId({item.TemplateId}) OwnerId({item.Owner.PlayerId}), Owner({item.Owner.Name})");
+                    }
+                    
                 }
             }
         }
 
-        // Update RElationship 1v1
-        public static void Update_1v1()
-        {
-            ShowItems();
-
-            Console.WriteLine("Input ItemSwitch PlayerId");
-            Console.Write(" > ");
-            int id = int.Parse(Console.ReadLine());
-
-            using (AppDbContext db = new AppDbContext())
-            {
-                Player player = db.Players
-                    .Include(p => p.Item)
-                    .Single(p => p.PlayerId == id);
-
-                if (player.Item != null)
-                {
-                    player.Item.TemplateId = 888;
-                    player.Item.CreateDate = DateTime.Now;
-                }
-
-                //player.Item = new Item()
-                //{
-                //    TemplateId = 777,
-                //    CreateDate = DateTime.Now
-                //};
-
-                db.SaveChanges();
-            }
-
-            Console.WriteLine("--- Test Complete --- ");
-            ShowItems();
-        }
 
         public static void ShowGuild()
         {
@@ -138,31 +113,29 @@ namespace MMO_EFCore
             }
         }
 
-        // Update RElationship 1vM
-        public static void Update_1vM()
+        
+        // 1) Tracking Entitiy를 얻어오고
+        // 2) Remove 호출
+        // 3) SaveChanges 호출
+        public static void TestDelete()
         {
-            ShowGuild();
+            ShowItems();
 
-            Console.WriteLine("Input GuildId");
-            Console.Write(" > ");
+            Console.WriteLine("Select Delete ItemId");
+            Console.WriteLine(" > ");
             int id = int.Parse(Console.ReadLine());
 
             using (AppDbContext db = new AppDbContext())
             {
-                Guild guild = db.Guilds
-                    .Include(g => g.Members)
-                    .Single(g => g.GuildId == id);
-
-                guild.Members.Add(new Player()
-                {
-                    Name = "Dopa"
-                });
-
+                Item item = db.Items.Find(id); // db.Find<Item>(id)
+                // db.Items.Remove(item);
+                item.SoftDeleted = true;
                 db.SaveChanges();
             }
 
-            Console.WriteLine("--- Test Complete --- ");
-            ShowGuild();
+            Console.WriteLine("-- TestDelete Complete --");
+            ShowItems();
+
         }
     }
 }
