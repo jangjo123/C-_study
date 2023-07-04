@@ -68,7 +68,45 @@ namespace MMO_EFCore
     // 2) Validation과 관련된 부분들은 Data Annotaion (직관적, SaveChanges 호출)
     // 3) 그 외에는 Fluent Api
 
-    // Entity 클래스 이름 = 테이블 이름 = Player
+    // 기본 용어 복습
+    // 1) Principal Entity -> Player
+    // 2) Dependent Entity -> Item
+    // 3) Navigational Property -> 다른 클래스 참조
+    // 4) Primart Key (PK)
+    // 5) Foreign Key (FK)
+    // 6) Principal Key = PK or Unique Alternate Key -> PK 아니여도 대체로 사용 가능한 느낌,
+    // 7) Required Relationship (Not-Null)
+    // 8) Optional Relationship (Nullable)
+
+    // Convention을 이용한 FK 설정
+    // 1) <PrincipalKeyName>                            PlayerId
+    // 2) <Class><PrincipalKeyName>                     PlayerPlayerId
+    // 3) <NavigationalPropertyName><PrincipalKeyName>  OwnerPlayerId, OwnerId
+
+    // FK와 Nullable
+    // 1) Required Relationship (Not-Null)
+    // 삭제할 때 OnDelete 인자를 Cascade 모드로 호출 -> Principal 삭제하면 Dependent 삭제
+    // 2) Optional Relationship (Nullable)
+    // 삭제할 때 OnDelete 인자를 ClientSetNull 모드로 호출
+    // -> Principal 삭제할 때 Dependent Tracking 하고 있으면, FK를 null 세팅
+    // -> Principal 삭제할 때 Dependent Tracking 하고 있지 않으면, Exception 발생
+
+    // Convention 방식으로 못하는 것들
+    // 1) 복합 FK
+    // 2) 다수의 Navigational Property가 같은 클래스를 참조할 때
+    // 3) DB나 삭제 관련 커스터마이징 필요할 때
+
+    // Data Annotation으로 Relationship 설정
+    // [ForeignKey("Property")]
+    // [InverseProperty] -> 다수의 Navigational Property가 같은 클래스를 참조할 때
+
+    // Fluent Api로 Relationship 설정
+    // .HasOne() .HasMany() -> 1:1 , 1:M
+    // .withOne() .WithMany()
+    // .HasForeignKey() .IsRequired() .OnDelete()
+    // .HasConstrainName() .HasPrincipalKey()
+
+    // Entity 클래스 이름 = 테이블 이름 = Item
     [Table("Item")]
     public class Item
     {
@@ -80,9 +118,12 @@ namespace MMO_EFCore
         public DateTime CreateDate { get; set; }
 
         // 다른 클래스 참조 -> FK (Navigational Property)
+        public int TestOwnerId { get; set; }
         //[ForeignKey("OwnerId")]
-        public int? OwnerId { get; set; }
         public Player Owner { get; set; }
+
+        public int? TestCreatorId { get; set; }
+        public Player Creator { get; set; }
     }
 
     // Entity 클래스 이름 = 테이블 이름 = Player
@@ -94,9 +135,14 @@ namespace MMO_EFCore
 
         [Required]
         [MaxLength(20)]
+        // Alternate Key
         public string Name { get; set; }
 
-        public Item Item { get; set; }
+        // [InverseProperty("Owner")]
+        public Item OwnedItem { get; set; }
+        // [InverseProperty("Creator")]
+        public ICollection<Item> CreatedItems { get; set; }
+
         public Guild Guild { get; set; }
     }
 
