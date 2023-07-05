@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace MMO_EFCore
 {
-    // 오늘의 주제 : Configuration
+    // 오늘의 주제 : Sadow Property + Backing Field
 
     // A) Convention (관례)
     // ~ 각종 형식과 이름 등을 정해진 규칙에 맞게 만들면, EF Core에서 알아서 처리
@@ -62,7 +63,7 @@ namespace MMO_EFCore
 
     // Q7) Soft Delete
     // .HasQueryFilter()
-    
+
     // 언제 무엇을?
     // 1) Convention이 가장 무난
     // 2) Validation과 관련된 부분들은 Data Annotaion (직관적, SaveChanges 호출)
@@ -106,10 +107,45 @@ namespace MMO_EFCore
     // .HasForeignKey() .IsRequired() .OnDelete()
     // .HasConstrainName() .HasPrincipalKey()
 
+    // Shadow Property
+    // Class에는 있지만 DB에는 없음 -> [NotMapped] .Ignore()
+    // DB에는 있지만 Class에는 없음 -> Shadow Property
+    // 생성 -> .Property<DateTime>("RecoverdDate")
+    // Read/Write -> .Property("RecoverdDate").CurrentValue
+
+    // Backing Field (EF Core)
+    // private field DB에 매핑하고, public getter로 가공해서 사용
+    // ex) DB에는 json형태로 string을 저장하고, getter는 json을 가공해서 사용
+    // 일반적으로 Fluent Api
+
     // Entity 클래스 이름 = 테이블 이름 = Item
+
+    public struct ItemOption
+    {
+        public int str;
+        public int dex;
+        public int hp;
+    }
+
     [Table("Item")]
     public class Item
     {
+        private string _jsonData;
+        public string JsonData
+        {
+            get { return _jsonData; }
+        }
+
+        public void SetOption(ItemOption option)
+        {
+            _jsonData = JsonConvert.SerializeObject(option);
+        }
+
+        public ItemOption GetOption()
+        {
+            return JsonConvert.DeserializeObject<ItemOption>(_jsonData);
+        }
+
         public bool SoftDeleted { get; set; }
 
         // 이름Id -> PK
