@@ -12,6 +12,7 @@ namespace MMO_EFCore
             // CRUD (Create-Read-Update-Delete)
             Console.WriteLine("명령어를 입력하세요");
             Console.WriteLine("[0] ForceReset");
+            Console.WriteLine("[1] ShowItems");
 
             while (true)
             {
@@ -23,6 +24,7 @@ namespace MMO_EFCore
                         DbCommands.InitiakuzeDB(forceReset: true);
                         break;
                     case "1":
+                        DbCommands.ShowItems();
                         break;
                     case "2":
                         break;
