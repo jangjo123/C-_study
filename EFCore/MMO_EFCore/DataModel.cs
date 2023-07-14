@@ -10,47 +10,37 @@ using System.Text;
 
 namespace MMO_EFCore
 {
-    // 오늘의 주제 : Migration
+    // 오늘의 주제 : DbContext 심화 과정 (최적화 등 때문에)
+    // 1) ChangeTracker
+    // - Tracking State 관련
+    // 2) Database
+    // - Transaction
+    // - DB Creation/Mitgraion
+    // - Raw SQL
+    // 3) Model
+    // - DB 모델링 관련
 
-    // 일단 EF Core DbContext <-> DB 상태에 대해 동의가 있어야 함
-    // 무엇을 기준으로 할 것인가? 닭이 먼저냐 알이 먼저냐
+    // State (상태)
+    // 0) Detached (No Tracking ! 추적되지 않는 상태. SaveChanges를 해도 존재도 모름)
+    // 1) Unchanged (DB에 있고, 딱히 수정사항도 없었음. SaveChanges를 해도 아무 것도 X)
+    // 2) Deleted (DB에는 아직 있지만, 삭제되어야 함. SaveChanges로 DB에 적용)
+    // 3) Modified (DB에 있고, 클라에서 수정된 상태, SaveChanges로 DB에 적용)
+    // 4) Added (DB에는 아직 없음, SaveChanges로 DB에 적용)
 
-    // 1) Code-First
-    // - 지금까지 우리가 사용하던 방식 (Entity Class / DbContext가 기준)
-    // - 항상 최신 상태로 DB를 업데이트 하고 싶다는 말이 아님
+    // State 체크 방법
+    // - Entry().State
+    // - Entry().Property().IsModified
+    // - Entry().Navigation().IsModified
 
-    // *** Migration Step ***
-    // A) Migration 만들고;
-    // B) Migration을 적용하고;
-
-    // A) Add-Migration [Name]
-    // - 1) DbContext를 찾아서 분석 -> DB 모델링 (최신)
-    // - 2) -ModelSnapshot.cs를 이용해서 가장 마지막 Migration 상태의 DB 모델링(가장 마지막 상태)
-    // - 3) 1-2 비교 결과 도출
-    // -- a) ModelSnapshot -> 최신 DB 모델링
-    // -- b) MIgrate.Designer.cs와 Migrate.cs -> Migration 관련된 세부 정보
-    // 수동으로 Up/Down을 추가해도 됨
-
-    // B) Migration 적용
-    // -1) SQL change script
-    // -- Script-Migration [From] [To] [Options]
-    // -2) Database.Migrate 호출
-    // -3) Command Line 방식
-    // - Update-Database [options]
-
-    // 특정 Migration으로 Sync (Update-Database [Name])
-    // 마지막 Migration 삭제 (Remove-Migration)
-
-    // 2) Database-First
-    // - EF Core Power tools를 이용하면 간단하게 가능
-    // - 이미 있는 Database를 바탕으로 EFCore 코드를 만들어줌
-
-    // 3) SQL-First
-    // -- 손수 만들기
-    // -- Script-Migration [From] [To] [Options]
-    // -- DB 끼리의 비교를 이용해서 SQL 추출
-
-    // 결론: Code-First <- 이게 GOAT
+    // State가 대부분 '직관적'이지만 Relationship이 개입하면 살짝 더 복잡함
+    // - 1) Add/AddRange 사용할 떄의 상태 변화
+    // -- NotTracking 상태라면 Added
+    // -- Tracking 상태인데, FK 설정이 필요한지에 때라 Modified / 기존 상태 유지
+    // - 2) Remove/RemoveRange 사용할 때의 상태 변화
+    // - (DB에 의해 생성된 Key) && (C# 기본값 아님) -> 필요에 따라 Unchanged / Modified / Deleted
+    // - (DB에 의해 생성된 Key 없음) || C# 기본값) -> Added
+    // -- 삭제하는데 왜 굳이 Added이지? 동작 일관성 때문
+    // -- Db에서도 일단 존재는 알아야.. Cascaed Delete 처리 등
 
     [Table("Item")]
     public class Item

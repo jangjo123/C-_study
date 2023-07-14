@@ -9,13 +9,6 @@ using System.Text;
 
 namespace MMO_EFCore
 {
-    // 오늘의 주제 : STate (상태)
-    // 0) Detached (No Tracking ! 추적되지 않는 상태. SaveChanges를 해도 존재도 모름)
-    // 1) Unchanged (DB에 있고, 딱히 수정사항도 없었음. SaveChanges를 해도 아무 것도 X)
-    // 2) Deleted (DB에는 아직 있지만, 삭제되어야 함. SaveChanges로 DB에 적용)
-    // 3) Modified (DB에 있고, 클라에서 수정된 상태, SaveChanges로 DB에 적용)
-    // 4) Added (DB에는 아직 없음, SaveChanges로 DB에 적용)
-
     public class DbCommands
     {
         // 초기화 시간이 좀 걸림
@@ -54,7 +47,7 @@ namespace MMO_EFCore
 
         public static void CreateTestData(AppDbContext db)
         {
-            var Gunal = new Player() { };
+            var Gunal = new Player() { Name = "Gunal" };
             var Faker = new Player() { Name = "Faker" };
             var Dohee = new Player() { Name = "Dohee" };
 
@@ -88,6 +81,45 @@ namespace MMO_EFCore
 
             db.Items.AddRange(items);
             db.Guilds.Add(guild);
+
+            // Added
+            Console.WriteLine("1번)" + db.Entry(Gunal).State);
+
+
+            db.SaveChanges();
+
+            // ------------------------
+
+            // Add Test
+            {
+                Item item = new Item()
+                {
+                    TemplateId = 500,
+                    Owner = Gunal
+                };
+                db.Items.Add(item);
+                // 아티엠 추가 -> 간접적으로 Player도 영향
+                // Player는 Tracking 상태이고, FK 설정은 필요 없음
+                Console.WriteLine("2번)" + db.Entry(Gunal).State); // Unchanged
+            }
+
+            // Delete Test
+            {
+                Player p = db.Players.First();
+
+                // 아직 DB는 이 새로운 길드의 존재도 모름 (DB 키 없음 0)
+                p.Guild = new Guild() { GuildName = "곧 삭제될 길드" };
+                // 위에서 아이템이 이미 DB에 들어간 상태 (DB 키 있음)
+                p.OwnedItem = items[0];
+
+                db.Players.Remove(p);
+
+                // Player를 직접적으로 삭제하니까,,
+                Console.WriteLine("3번)" + db.Entry(p).State); // Deleted
+                Console.WriteLine("4번)" + db.Entry(p.Guild).State); // Added
+                Console.WriteLine("5번)" + db.Entry(p.OwnedItem).State); // Deleted
+
+            }
 
             db.SaveChanges();
         }
