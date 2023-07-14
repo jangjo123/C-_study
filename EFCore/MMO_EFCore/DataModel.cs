@@ -42,9 +42,15 @@ namespace MMO_EFCore
     // 마지막 Migration 삭제 (Remove-Migration)
 
     // 2) Database-First
+    // - EF Core Power tools를 이용하면 간단하게 가능
+    // - 이미 있는 Database를 바탕으로 EFCore 코드를 만들어줌
 
     // 3) SQL-First
+    // -- 손수 만들기
+    // -- Script-Migration [From] [To] [Options]
+    // -- DB 끼리의 비교를 이용해서 SQL 추출
 
+    // 결론: Code-First <- 이게 GOAT
 
     [Table("Item")]
     public class Item
