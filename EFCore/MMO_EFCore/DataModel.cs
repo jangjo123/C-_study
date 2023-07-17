@@ -10,59 +10,25 @@ using System.Text;
 
 namespace MMO_EFCore
 {
-    // 오늘의 주제 : DbContext 심화 과정 (최적화 등 때문에)
-    // 1) ChangeTracker
-    // - Tracking State 관련
-    // 2) Database
-    // - Transaction
-    // - DB Creation/Mitgraion
-    // - Raw SQL
-    // 3) Model
-    // - DB 모델링 관련
+    // 오늘의 주제 : State 조작
 
-    // State (상태)
-    // 0) Detached (No Tracking ! 추적되지 않는 상태. SaveChanges를 해도 존재도 모름)
-    // 1) Unchanged (DB에 있고, 딱히 수정사항도 없었음. SaveChanges를 해도 아무 것도 X)
-    // 2) Deleted (DB에는 아직 있지만, 삭제되어야 함. SaveChanges로 DB에 적용)
-    // 3) Modified (DB에 있고, 클라에서 수정된 상태, SaveChanges로 DB에 적용)
-    // 4) Added (DB에는 아직 없음, SaveChanges로 DB에 적용)
+    // - 직접 State를 조작할 수 있따. (ex. 최적화 등)
+    // ex) Entry().State = EntityState.Added
+    // ex) Entry().Property("").IsModified = true
 
-    // State 체크 방법
-    // - Entry().State
-    // - Entry().Property().IsModified
-    // - Entry().Navigation().IsModified
+    // - TrackGraph
+    // Relationship이 있는 Untracked Entity의 State 조작
+    // ex) 전체 데이터 중에서 일부만 갱신하고 싶다거나.
 
-    // State가 대부분 '직관적'이지만 Relationship이 개입하면 살짝 더 복잡함
-    // - 1) Add/AddRange 사용할 떄의 상태 변화
-    // -- NotTracking 상태라면 Added
-    // -- Tracking 상태인데, FK 설정이 필요한지에 때라 Modified / 기존 상태 유지
-    // - 2) Remove/RemoveRange 사용할 때의 상태 변화
-    // - (DB에 의해 생성된 Key) && (C# 기본값 아님) -> 필요에 따라 Unchanged / Modified / Deleted
-    // - (DB에 의해 생성된 Key 없음) || C# 기본값) -> Added
-    // -- 삭제하는데 왜 굳이 Added이지? 동작 일관성 때문
-    // -- Db에서도 일단 존재는 알아야.. Cascaed Delete 처리 등
+    // - ChangeTracker
+    // 상태 정보의 변화를 감지하고 싶을 때 유용
+    // ex) Player의 Name이 바뀔 때 로그를 찍고 싶다.
+    // ex) Validation 코드를 넣고 싶다거나
+    // ex) Player가 생성된 시점을 CreateTime으로 정보를 추가하고 싶다.
 
-
-    // - 3) Update / UpdateRange
-    // - EF에서 Entity를 Update하는 기본적인 방법은 Update가 아님
-    // - Tracked Entity 얻어오고 -> property 수정 -> SaveChanges
-    // - Update는 Untracked Entity를 통으로 업데이트 할 때 (Disconnected State)
-
-    // Relationship이 있을 때
-    // - (DB에 의해 생성된 Key) && (0 아님) -> 필요에 따라 Unchanged / Modified / Deleted
-    // - (DB에 의해 생성된 Key 없음) || 0) -> Added
-
-    // EF Core에서 Update하면 일어나는 Step
-    // 1) Update 호출
-    // 2) Entity State =  Modified 로 변경
-    // 3) 모든 Non-Relational Property의 IsModified = true로 변경
-
-    // - 4) Attach
-    // - Untracked Entity를 Tracked Entity로 변경
-
-    // Relationship이 있을 때
-    // - (DB에 의해 생성된 Key) && (0 아님) -> Unchanged
-    // - (DB에 의해 생성된 Key 없음) || 0) -> Added
+    // Steps
+    // 1) SaveChanges를 override
+    // 2) ChangeTracker.Entries를 이용해서 바뀔 정보 추출 / 사용
 
     [Table("Item")]
     public class Item
@@ -89,9 +55,16 @@ namespace MMO_EFCore
         public DateTime DestroyDate { get; set; }
     }
 
+    // 만들어진 시간 추적
+    public interface ILogEntity
+    {
+        DateTime CreateTime { get; }
+        void SetCreateTime();
+    }
+
     // Entity 클래스 이름 = 테이블 이름 = Player
     [Table("Player")]
-    public class Player
+    public class Player : ILogEntity
     {
         // 이름Id -> PK
         public int PlayerId { get; set; }
@@ -103,6 +76,13 @@ namespace MMO_EFCore
         // [InverseProperty("Owner")]
         public Item OwnedItem { get; set; }
         public Guild Guild { get; set; }
+
+        public DateTime CreateTime { get; private set; }
+
+        public void SetCreateTime()
+        {
+            CreateTime = DateTime.Now;
+        }
     }
 
     [Table("Guild")]
