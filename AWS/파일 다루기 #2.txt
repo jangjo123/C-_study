@@ -1,0 +1,35 @@
+mkdir [절대경로/상대경로]  (make directory 디렉터리 생성)
+mkdir -p (path) 중간에 없는 디렉터리가 있으면 자동 생성
+
+rmdir (remove directory 디렉터리 삭제)
+rmdir -p (path) 지정한 디렉터리 삭제, 삭제한 디렉터리의 부모가 비었으면 부모도 삭제
+
+cat [절대경로/상대경로] (concatenate 파일 내용 출력)
+more [space 다음화면 enter 다음행 q 종료]
+less (q 종료)
+
+cp [src] [dest] (copy)
+cp -r (디렉터리 옵션)
+cp [src] [src2] [src3] [destDir] (한방에 destDir 로 복사)
+
+mv (move)
+mv [src] [dest] (copy)
+mv [src] [src2] [src3] [destDir]
+
+rm (remove)
+rm [fie]
+rm -r [dir]
+rmdir은 비어있어야 삭제 가능. rm -r 삭제 (복구 불가능하니 조심)
+
+ln (link) 바로가기
+- 하드 링크 (inode 번호도 같다. C# 참조, C++ 스마트 포인터)
+- 심볼릭 링크 (-s)
+
+grep [옵션] [패턴] [파일] (파일 내용 검색)
+- n 행번호 출력
+- i 대소문자 구분없
+
+find [경로] [조건] [동장] (파일 검색)
+- name [파일이름]
+- type [파일종류]
+- user [유저]
