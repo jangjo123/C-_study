@@ -1,0 +1,78 @@
+오늘의 주제 : 셸(shell)
+- 사용자가 리눅스 커널과 대화(명령)하기 위한 도구
+
+shell 종류
+- /bin/sh (본셸 bourne shell)
+- /bin/bash (배시셸 bash shell)
+- 우리가 사용하는건 bash
+
+출력
+echo [문자열]
+
+문자열 관련 특수문자 (aka 조커카드)
+*        모든 길이의 아무 문자열도 대체 가능
+?        하나의 문자
+[ ]       괄호안에 하나의 문자
+
+ls tes*
+ls tes?.txt
+ls test[0~2].txt
+
+특수문자 취소
+' ' 문자열 안의 특수문자 모두 없앰
+" " 문자열 안의 특수문자 모두 없앰 ($ ' \ 제외)
+\ 특수문자 효과 없애고 일반문자 처리
+
+경로 관련 특수문자
+~ (틸드) 작업자의 홈 디렉터리
+- (하이픈) 이전 작업 디렉터리
+
+명령 관련 특수 문자
+; (세미콜론) 왼쪽부터 명령 차례 실행
+| (파이프) 왼쪽 명령의 결과를 오른쪽으로 전달
+
+입출력 redirection 관련
+Q) 결과를 모니터 출력이 아니라, 파일에 저장하고 싶다면?
+리눅스는 키보드, 모니터 장치도 파일로 관리 /dev
+파일 구분을 위해 일련번호가 붙는데, 이를 file descriptor라고 함.
+표준 입출력 장치
+ - 0 stdin 표준 입력
+ - 1 stdout 표준 출력
+ - 2 stderr 표준 오류
+
+> 표준 출력 파일을 바꿈 (redirection)
+echo Hello World > hello.txt
+ls abc.txt 2> err.txt (abc.txt가 없음 에러)
+
+성공/실패 모를 때 둘다 redirection
+ls 있나없나모름.txt > out.txt 2> err.txt
+
+오류 무시
+/dev/null (안드로메다) 특수파일로 redirection
+ls abc.txt 2> /dev/null
+
+표준 출력/오류를 한 파일로 redirection
+1) > 을 이용해서 out file로 redirection
+2) 2>&1 을 이용해서 error를 out으로 redirection
+ls 있나없나모름.txt > out.txt 2>&1
+
+< 파일 내용을 표준 입력 장치로
+cat out.txt -> cat < out.txt 같음
+
+셸 환경 변수
+env 환경 변수 목록 보기
+
+echo $SHELL
+echo $LANG
+
+ALIAS(엘리어스)
+- 명령어에 별칭을 붙이는 것
+- 이름이 너무 길다거나, 기본 옵션을 추가 한다거나
+
+alias lll = 'ls -alF'
+unalias lll
+
+history(히스토리) 목록을 보여줌
+!번호 해당번호의 명령어를 재실행
+!문자열 히스토리에서 해당 문자열로 시작하는 마지막 명령을 재실행
+
