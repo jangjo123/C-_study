@@ -1,0 +1,67 @@
+오늘의 주제: 계정 관리
+
+사용자 계정 주요 파일
+
+/etc/passwd 사용자 계정 정보
+
+user1: 로그인ID (사용자 계정)
+x: 초창기 유닉스에서는 암호 표시. 보안 때문에 /etc/shadow 암호 이동. x
+1000: UID (사용자ID UserId) 0~999번 시스템 예약, 1000
+1000: GID (그룹ID GroupId) 지정하지 않으면 로그인ID /etc/group 파일 정보
+user1: 설명(comment 실명, 부서명, 연락처, 주소)
+/home/user1: 홈 디렉터리 (로그인 시 홈 디렉터리 시작)
+/bin/bash: 로그인 셸 (로그인 시 기본적으로 사용하는 셸)
+
+/etc/shadow
+
+su {사용자} (switch user)
+
+user1: 로그인ID
+????: 비밀번호 (Hash 값)
+?: 암호 최종일 변경
+?: MIN (암호 변경 후 사용해야 하는 최소 기간)
+99999: MAX (암호 사용 최대 기간 99999일)
+7: WARNING (아모 만료되기 전에, 경고 시작하는 날 7일전)
+?: INACTIVE (암호 만료된 후에도 로그인이 가능한 일수)
+?: EXPIRE (사용자 계정이 만료되는 날)
+?: FLAG (비워둠. 확장 예약)
+
+/etc/login.defs 사용자 계정 기본 설정
+
+/etc/group 그룹 정보
+
+user1: 그룹 이름
+x: 예전에는 암호 저장. 지금은 /etc/gshadow 이전, 호환성 x
+1000: GID (GroupId) 그룹 식별 번호
+그룹 맴버: 그룹에 속한 맴버 목록
+
+/etc/gshadow
+
+user1: 그룹 이름
+!: 그룹의 비밀번호
+?: 그룹의 관리자
+?: 그룹에 속한 맴버
+
+사용자 계정 추가
+
+useradd [옵션] [로그인ID]
+- u (uid)
+- o (uid 중복 허용 ->uid가 같으면 같은 계정이라고 인식)
+- g (gid 기본 그룹)
+- s (기본 shell)
+- c (설명 comment)
+- e (유효기간 expire YYYY-MM-DD)
+- D: 기본값 설정/확인 (-b HOME -e EXPIRE -g GID -s SHELL)
+
+passwd user2
+
+사용자 계정 정보 수정
+
+usermod [옵션] [로그인ID]
+- u
+- g
+- d
+- c
+- f
+- e
+- l
